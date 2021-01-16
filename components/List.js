@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList} from 'react-native';
+import {FlatList, StyleSheet} from 'react-native';
 import ListItem from './ListItem';
 
 const mediaArray = [
@@ -38,10 +38,17 @@ const mediaArray = [
 const List = () => {
   return (
     <FlatList
+      style={styles.list}
       data={mediaArray}
       renderItem={({item}) => <ListItem singleMedia={item} />}
     />
   );
 };
+
+const styles = StyleSheet.create({
+  list: {
+    padding: 6,
+  },
+});
 
 export default List;
