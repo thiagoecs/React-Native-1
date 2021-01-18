@@ -9,7 +9,7 @@ const Single = ({route}) => {
     <SafeAreaView style={styles.container}>
       <Text>{file.title}</Text>
       <Image
-        source={{url: uploadsUrl + file.filename}}
+        source={{uri: uploadsUrl + file.filename}}
         style={{width: '90%', height: '80%'}}
         resizeMode="contain"
       />
