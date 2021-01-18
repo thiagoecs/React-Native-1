@@ -1,8 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
-
-const uploadsUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
+import {uploadsUrl} from '../utils/variables';
 
 const ListItem = ({navigation, singleMedia}) => {
   // console.log(props);
