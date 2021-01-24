@@ -7,10 +7,10 @@ const Single = ({route}) => {
   const {file} = route.params;
   return (
     <SafeAreaView style={styles.container}>
-      <Text>{file.title}</Text>
+      <Text style={styles.title}>{file.title}</Text>
       <Image
         source={{uri: uploadsUrl + file.filename}}
-        style={{width: '90%', height: '80%'}}
+        style={styles.image}
         resizeMode="contain"
       />
     </SafeAreaView>
@@ -22,6 +22,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
+  },
+  image: {
+    flex: 1,
+    borderRadius: 6,
+    width: '90%',
+    height: '80%',
+  },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    paddingBottom: 15,
   },
 });
 

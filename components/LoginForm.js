@@ -37,7 +37,7 @@ const LoginForm = ({navigation}) => {
           onChangeText={(txt) => handleInputChange('password', txt)}
           secureTextEntry={true}
         />
-        <Button title="Login" onPress={doLogin} />
+        <Button title="Login" onPress={doLogin} color="purple" />
       </View>
     </View>
   );

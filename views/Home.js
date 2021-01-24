@@ -8,7 +8,7 @@ const Home = ({navigation}) => {
   return (
     <SafeAreaView style={GlobalStyles.droidSafeArea}>
       <List navigation={navigation} />
-      <StatusBar style="auto" />
+      <StatusBar style="auto" backgroundColor="purple" />
     </SafeAreaView>
   );
 };

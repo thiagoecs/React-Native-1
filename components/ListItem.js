@@ -19,7 +19,7 @@ const ListItem = ({navigation, singleMedia}) => {
         />
       </View>
       <View style={styles.textbox}>
-        <Text style={styles.listTile}>{singleMedia.title}</Text>
+        <Text style={styles.listTitle}>{singleMedia.title}</Text>
         <Text>{singleMedia.description}</Text>
       </View>
     </TouchableOpacity>
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 15,
     marginBottom: 5,
-    backgroundColor: '#eee',
+    backgroundColor: 'pink',
     borderRadius: 6,
   },
   imagebox: {

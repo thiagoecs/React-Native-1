@@ -53,7 +53,7 @@ const RegisterForm = ({navigation}) => {
           placeholder="full name"
           onChangeText={(txt) => handleInputChange('full_name', txt)}
         />
-        <Button title="Register!" onPress={doRegister} />
+        <Button title="Register!" onPress={doRegister} color="purple" />
       </View>
     </View>
   );

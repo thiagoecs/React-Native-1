@@ -1,5 +1,14 @@
 import React, {useContext, useEffect} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  SafeAreaView,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Platform,
+} from 'react-native';
+import {StatusBar} from 'expo-status-bar';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -30,11 +39,31 @@ const Login = ({navigation}) => {
     getToken();
   }, []);
   return (
-    <View style={styles.container}>
-      <Text>Login</Text>
-      <LoginForm navigation={navigation} />
-      <RegisterForm navigation={navigation} />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.keyboard}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.inner}>
+            <LoginForm
+              navigation={navigation}
+              style={styles.smallSpace}
+              titleStyle={styles.title}
+              inputStyle={styles.input}
+              buttonColor={'purple'}
+            />
+            <RegisterForm
+              navigation={navigation}
+              titleStyle={styles.title}
+              inputStyle={styles.input}
+              buttonColor={'purple'}
+            />
+            <StatusBar style="auto" backgroundColor="purple" />
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
@@ -43,7 +72,23 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
+  },
+  smallSpace: {
+    marginBottom: 30,
+  },
+  keyboard: {
+    flex: 1,
+    width: '100%',
+  },
+  input: {
+    marginBottom: 8,
+  },
+  inner: {
+    padding: '16%',
+  },
+  title: {
+    fontSize: 24,
   },
 });
 
