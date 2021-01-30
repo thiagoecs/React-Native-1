@@ -1,20 +1,12 @@
 import React, {useContext, useEffect} from 'react';
-import {
-  StyleSheet,
-  View,
-  SafeAreaView,
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  Keyboard,
-  Platform,
-} from 'react-native';
-import {StatusBar} from 'expo-status-bar';
+import {View, KeyboardAvoidingView, Platform, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useUser} from '../hooks/ApiHooks';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
+import {Card, Text} from 'react-native-elements';
 
 const Login = ({navigation}) => {
   const {isLoggedIn, setIsLoggedIn, setUser} = useContext(MainContext);
@@ -39,56 +31,41 @@ const Login = ({navigation}) => {
     getToken();
   }, []);
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.keyboard}
-      >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.inner}>
-            <LoginForm
-              navigation={navigation}
-              style={styles.smallSpace}
-              titleStyle={styles.title}
-              inputStyle={styles.input}
-              buttonColor={'purple'}
-            />
-            <RegisterForm
-              navigation={navigation}
-              titleStyle={styles.title}
-              inputStyle={styles.input}
-              buttonColor={'purple'}
-            />
-            <StatusBar style="auto" backgroundColor="purple" />
-          </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+    >
+      <View style={styles.appTitle}>
+        <Text h1>MyApp</Text>
+      </View>
+      <View style={styles.form}>
+        <Card>
+          <Card.Title h4>Login</Card.Title>
+          <Card.Divider />
+          <LoginForm navigation={navigation} />
+        </Card>
+        <Card>
+          <Card.Title h4>Register</Card.Title>
+          <Card.Divider />
+          <RegisterForm navigation={navigation} />
+        </Card>
+      </View>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'space-around',
+    padding: 16,
   },
-  smallSpace: {
-    marginBottom: 30,
-  },
-  keyboard: {
+  appTitle: {
     flex: 1,
-    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  input: {
-    marginBottom: 8,
-  },
-  inner: {
-    padding: '16%',
-  },
-  title: {
-    fontSize: 24,
+  form: {
+    flex: 4,
   },
 });
 

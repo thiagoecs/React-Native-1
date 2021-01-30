@@ -4,10 +4,14 @@ import {baseUrl} from '../utils/variables';
 // general function for fetching
 const doFetch = async (url, options = {}) => {
   const response = await fetch(url, options);
-  if (!response.ok) {
-    throw new Error('doFetch fail');
+  const json = await response.json();
+  if (json.error) {
+    throw new Error(json.message + ': ' + json.error);
+  } else if (!response.ok) {
+    throw new Error('doFetch failed');
+  } else {
+    return json;
   }
-  return await response.json();
 };
 
 const useLoadMedia = () => {
@@ -101,4 +105,16 @@ const useUser = () => {
   return {postRegister, checkToken};
 };
 
-export {useLoadMedia, useLogin, useUser};
+const useTag = () => {
+  const getFilesByTag = async (tag) => {
+    try {
+      const tagList = await doFetch(baseUrl + 'tags/' + tag);
+      return tagList;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+  return {getFilesByTag};
+};
+
+export {useLoadMedia, useLogin, useUser, useTag};

@@ -1,38 +1,40 @@
 import React from 'react';
-import {StyleSheet, SafeAreaView, Text, Image} from 'react-native';
+import {StyleSheet, ActivityIndicator} from 'react-native';
 import PropTypes from 'prop-types';
 import {uploadsUrl} from '../utils/variables';
+import {Avatar, Card, ListItem, Text} from 'react-native-elements';
+import moment from 'moment';
 
 const Single = ({route}) => {
   const {file} = route.params;
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>{file.title}</Text>
-      <Image
+    <Card>
+      <Card.Title h4>{file.title}</Card.Title>
+      <Card.Title>{moment(file.time_added).format('LLL')}</Card.Title>
+      <Card.Divider />
+      <Card.Image
         source={{uri: uploadsUrl + file.filename}}
         style={styles.image}
-        resizeMode="contain"
+        PlaceholderContent={<ActivityIndicator />}
       />
-    </SafeAreaView>
+      <Card.Divider />
+      <Text style={styles.description}>{file.description}</Text>
+      <ListItem>
+        <Avatar source={{uri: 'http://placekitten.com/180'}}></Avatar>
+        <Text>Ownername</Text>
+      </ListItem>
+    </Card>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-  },
   image: {
-    flex: 1,
-    borderRadius: 6,
-    width: '90%',
-    height: '80%',
+    width: '100%',
+    height: undefined,
+    aspectRatio: 1,
   },
-  title: {
-    fontWeight: 'bold',
-    fontSize: 20,
-    paddingBottom: 15,
+  description: {
+    marginBottom: 10,
   },
 });
 
