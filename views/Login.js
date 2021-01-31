@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View, KeyboardAvoidingView, Platform, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
@@ -6,10 +6,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useUser} from '../hooks/ApiHooks';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
-import {Card, Text} from 'react-native-elements';
+import {Card, Text, Button} from 'react-native-elements';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const Login = ({navigation}) => {
   const {isLoggedIn, setIsLoggedIn, setUser} = useContext(MainContext);
+  const [formToggle, setFormToggle] = useState(true);
   console.log('ili', isLoggedIn);
   const {checkToken} = useUser();
 
@@ -31,26 +33,41 @@ const Login = ({navigation}) => {
     getToken();
   }, []);
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-    >
-      <View style={styles.appTitle}>
-        <Text h1>MyApp</Text>
-      </View>
-      <View style={styles.form}>
-        <Card>
-          <Card.Title h4>Login</Card.Title>
-          <Card.Divider />
-          <LoginForm navigation={navigation} />
-        </Card>
-        <Card>
-          <Card.Title h4>Register</Card.Title>
-          <Card.Divider />
-          <RegisterForm navigation={navigation} />
-        </Card>
-      </View>
-    </KeyboardAvoidingView>
+    <ScrollView>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+        enabled
+      >
+        <View style={styles.appTitle}>
+          <Text h4>MyApp</Text>
+        </View>
+        <View style={styles.form}>
+          <Text style={styles.text}>
+            {formToggle ? 'No account ?' : 'Already registered?'}
+          </Text>
+          <Button
+            title={formToggle ? 'Register' : 'Login'}
+            onPress={() => {
+              setFormToggle(!formToggle);
+            }}
+          />
+          {formToggle ? (
+            <Card>
+              <Card.Title h5>Login</Card.Title>
+              <Card.Divider />
+              <LoginForm navigation={navigation} />
+            </Card>
+          ) : (
+            <Card>
+              <Card.Title h5>Register</Card.Title>
+              <Card.Divider />
+              <RegisterForm navigation={navigation} />
+            </Card>
+          )}
+        </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 
@@ -65,7 +82,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   form: {
-    flex: 4,
+    flex: 2,
+  },
+  text: {
+    alignSelf: 'center',
+    padding: 20,
   },
 });
 

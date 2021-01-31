@@ -102,7 +102,17 @@ const useUser = () => {
       throw new Error(error.message);
     }
   };
-  return {postRegister, checkToken};
+
+  const checkIsUserAvailable = async (username) => {
+    try {
+      const result = await doFetch(baseUrl + 'user/username/' + username);
+      return result.available;
+    } catch (error) {
+      throw new Error('apihooks checkIsUserAvailable', error.message);
+    }
+  };
+
+  return {postRegister, checkToken, checkIsUserAvailable};
 };
 
 const useTag = () => {
