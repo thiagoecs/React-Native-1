@@ -7,7 +7,7 @@ import {useUser} from '../hooks/ApiHooks';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
 import {Card, Text, Button} from 'react-native-elements';
-import {ScrollView} from 'react-native-gesture-handler';
+// import {ScrollView} from 'react-native-gesture-handler';
 
 const Login = ({navigation}) => {
   const {isLoggedIn, setIsLoggedIn, setUser} = useContext(MainContext);
@@ -33,41 +33,39 @@ const Login = ({navigation}) => {
     getToken();
   }, []);
   return (
-    <ScrollView>
-      <KeyboardAvoidingView
-        style={styles.container}
-        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-        enabled
-      >
-        <View style={styles.appTitle}>
-          <Text h4>MyApp</Text>
-        </View>
-        <View style={styles.form}>
-          <Text style={styles.text}>
-            {formToggle ? 'No account ?' : 'Already registered?'}
-          </Text>
-          <Button
-            title={formToggle ? 'Register' : 'Login'}
-            onPress={() => {
-              setFormToggle(!formToggle);
-            }}
-          />
-          {formToggle ? (
-            <Card>
-              <Card.Title h5>Login</Card.Title>
-              <Card.Divider />
-              <LoginForm navigation={navigation} />
-            </Card>
-          ) : (
-            <Card>
-              <Card.Title h5>Register</Card.Title>
-              <Card.Divider />
-              <RegisterForm navigation={navigation} />
-            </Card>
-          )}
-        </View>
-      </KeyboardAvoidingView>
-    </ScrollView>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS == 'ios' ? 'padding' : 'padding'}
+      enabled
+    >
+      <View style={styles.appTitle}>
+        <Text h4>MyApp</Text>
+      </View>
+      <View style={styles.form}>
+        <Text style={styles.text}>
+          {formToggle ? 'No account ?' : 'Already registered?'}
+        </Text>
+        <Button
+          title={formToggle ? 'Register' : 'Login'}
+          onPress={() => {
+            setFormToggle(!formToggle);
+          }}
+        />
+        {formToggle ? (
+          <Card>
+            <Card.Title h5>Login</Card.Title>
+            <Card.Divider />
+            <LoginForm navigation={navigation} />
+          </Card>
+        ) : (
+          <Card>
+            <Card.Title h5>Register</Card.Title>
+            <Card.Divider />
+            <RegisterForm navigation={navigation} />
+          </Card>
+        )}
+      </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -82,7 +80,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   form: {
-    flex: 2,
+    flex: 6,
   },
   text: {
     alignSelf: 'center',
